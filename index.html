@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Förderverein Kita St. Johann – Flohmarkt</title>
+  <meta name="description" content="Förderverein Kita St. Johann – Infos zum Flohmarkt, Countdown und Anmeldung."/>
+
+  <style>
+    :root{
+      /* Flyer-inspirierte Farbwelt */
+      --wine: #7b2b3b;
+      --teal: #0aa6a6;
+      --green:#9cc23b;
+      --yellow:#ffd44d;
+      --orange:#f2a03a;
+
+      --bg1: #ffffff;
+      --bg2: #fbf6f3;
+      --text:#222;
+      --muted:#5b5b5b;
+
+      --card-shadow: 0 10px 24px rgba(0,0,0,.08);
+      --radius: 16px;
+    }
+
+    *{ box-sizing: border-box; }
+    html{ scroll-behavior: smooth; }
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: radial-gradient(900px 600px at 10% 10%, var(--bg2), var(--bg1));
+      overflow-x: hidden;
+    }
+
+    /* ========== Animierte Punkte (Eyecatcher) ========== */
+    .dots{
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .dot{
+      position: absolute;
+      border-radius: 999px;
+      opacity: .9;
+      will-change: transform;
+      animation: floaty 12s ease-in-out infinite, pulse 7s ease-in-out infinite;
+    }
+
+    .d1{ width:78px; height:78px; left: 6%;  top: 10%; background: var(--teal);   animation-delay: 0s;  }
+    .d2{ width:46px; height:46px; left: 18%; top: 56%; background: var(--yellow); animation-delay: -2s; }
+    .d3{ width:92px; height:92px; left: 66%; top:  8%; background: var(--green);  animation-delay: -4s; }
+    .d4{ width:58px; height:58px; left: 78%; top: 38%; background: var(--orange); animation-delay: -1s; }
+    .d5{ width:40px; height:40px; left: 92%; top: 12%; background: var(--wine);   animation-delay: -3s; opacity:.85;}
+    .d6{ width:28px; height:28px; left: 52%; top: 30%; background: var(--yellow); animation-delay: -5s; opacity:.75;}
+    .d7{ width:64px; height:64px; left: 12%; top: 80%; background: var(--green);  animation-delay: -6s; }
+    .d8{ width:34px; height:34px; left: 88%; top: 74%; background: var(--teal);   animation-delay: -7s; opacity:.7; }
+
+    @keyframes floaty{
+      0%,100%{ transform: translate(0,0); }
+      50%    { transform: translate(16px,-20px); }
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); }
+      50%    { transform: scale(1.06); }
+    }
+
+    /* Wenn Nutzer "Bewegung reduzieren" aktiv haben, Animationen aus */
+    @media (prefers-reduced-motion: reduce){
+      .dot{ animation: none !important; }
+      html{ scroll-behavior: auto; }
+    }
+
+    /* Inhalte über die Punkte legen */
+    .page{
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ========== Layout ========== */
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header{
+      padding: 56px 0 24px;
+    }
+
+    .topbar{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .brand{
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 260px;
+    }
+
+    /* Logo statt buntem Kreis */
+    .logo{
+  width: 1300px;     /* Größe */
+  height: auto;    /* Proportionen behalten */
+  max-height: 240px;
+
+  object-fit: contain;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.06);
+  padding: 8px;
+}
+
+    .brand h1{
+      font-size: 20px;
+      margin: 0;
+      color: var(--wine);
+      letter-spacing: .2px;
+    }
+    .brand p{
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    nav a{
+      color: var(--wine);
+      text-decoration: none;
+      font-weight: 700;
+      margin-left: 14px;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    nav a:hover{ text-decoration: underline; }
+
+    .hero{
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .card{
+      background: rgba(255,255,255,.92);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(6px);
+      animation: fadeIn 600ms ease;
+    }
+
+    @keyframes fadeIn{
+      from{ opacity: 0; transform: translateY(10px); }
+      to  { opacity: 1; transform: translateY(0); }
+    }
+
+    h2{
+      margin: 0 0 10px;
+      color: var(--wine);
+      font-size: 26px;
+      line-height: 1.15;
+    }
+    h3{
+      margin: 18px 0 8px;
+      color: var(--wine);
+      font-size: 18px;
+    }
+
+    .lead{
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 16px;
+    }
+
+    .pillrow{
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .pill{
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-weight: 800;
+      font-size: 13px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: #fff;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 120ms ease;
+    }
+    .pill:hover{ transform: translateY(-1px); }
+    .pill.teal{ color: var(--teal); }
+    .pill.green{ color: #4f7b11; }
+    .pill.wine{ color: var(--wine); }
+    .pill.orange{ color: #b66a13; }
+
+    .cta{
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .btn{
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 14px;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      transition: transform 120ms ease, filter 120ms ease;
+      user-select: none;
+    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(0.98); }
+    .btn.primary{ background: var(--wine); color: #fff; }
+    .btn.secondary{ background: #fff; color: var(--wine); border: 1px solid rgba(0,0,0,.12); }
+
+    section{
+      padding: 22px 0;
+    }
+
+    .grid2{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 860px){
+      .grid2{ grid-template-columns: 1fr; }
+    }
+
+    .info-list{
+      margin: 10px 0 0;
+      padding-left: 18px;
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .countdown{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(123,43,59,.08), rgba(10,166,166,.08));
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .countdown .label{
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+    #countdownValue{
+      font-size: 24px;
+      font-weight: 950;
+      color: var(--wine);
+      letter-spacing: .2px;
+    }
+
+    form{
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    input, textarea{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.18);
+      font: inherit;
+      background: #fff;
+    }
+    textarea{ resize: vertical; min-height: 110px; }
+
+    .formhint{
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    footer{
+      padding: 34px 0 46px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a{
+      color: var(--wine);
+      text-decoration: none;
+      font-weight: 800;
+    }
+    footer a:hover{ text-decoration: underline; }
+
+    .legal p, .legal li{
+      color: #333;
+      line-height: 1.6;
+      font-size: 14px;
+    }
+    .legal small{
+      color: var(--muted);
+    }
+
+    .divider{
+      height: 1px;
+      background: rgba(0,0,0,.08);
+      margin: 18px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- animierte Punkte -->
+  <div class="dots" aria-hidden="true">
+    <span class="dot d1"></span>
+    <span class="dot d2"></span>
+    <span class="dot d3"></span>
+    <span class="dot d4"></span>
+    <span class="dot d5"></span>
+    <span class="dot d6"></span>
+    <span class="dot d7"></span>
+    <span class="dot d8"></span>
+  </div>
+
+  <div class="page">
+    <div class="container">
+      <header>
+        <div class="topbar">
+          <div class="brand">
+            <!-- Logo-Datei bitte als logo.png neben index.html ablegen -->
+            <img class="logo" src="logo.png" alt="Logo Förderverein Kita St. Johann" />
+            <div>
+              <h1>Förderverein Kita St. Johann</h1>
+              <p>Gemeinsam stark für unsere Kinder</p>
+            </div>
+          </div>
+
+          <nav>
+            <a href="#foerderverein">Förderverein</a>
+            <a href="#flohmarkt">Flohmarkt</a>
+            <a href="#anmeldung">Anmeldung</a>
+            <a href="#impressum">Impressum</a>
+            <a href="#datenschutz">Datenschutz</a>
+          </nav>
+        </div>
+
+        <div class="hero">
+          <div class="card" id="top">
+            <h2>Flohmarkt & Förderverein – alles auf einen Blick</h2>
+            <p class="lead">
+              Wir engagieren uns seit dem Jahr 2000 mit Herzblut für das Wohl und die Entwicklung aller Kinder unserer Kita –
+              durch Anschaffungen, Ausflüge und Aktionen.
+	      Nun planen wir unseren ersten <b>Flohmarkt</b> zugunsten des Fördervereins. 
+
+ <h3>Am 30. Mai ab 10 Uhr ist es soweit. Kommt vorbei!</h3>
+            </p>
+
+            <!-- Pills jetzt verlinkt -->
+            <div class="pillrow">
+              <a class="pill wine" href="#foerderverein">Infos</a>
+              <a class="pill green" href="#anmeldung">Anmeldung</a>
+              <a class="pill orange" href="#kontakt">Kontakt</a>
+            </div>
+
+            <!-- Countdown jetzt im Hauptblock -->
+            <div class="countdown" aria-live="polite">
+              <div class="label">Countdown bis zum Flohmarkt am 30.05.2026</div>
+              <div id="countdownValue">Lädt…</div>
+              <small class="formhint">
+                
+              </small>
+            </div>
+
+            <div class="cta">
+              <a class="btn primary" href="#flohmarkt">Zum Flohmarkt</a>
+              <a class="btn secondary" href="#anmeldung">Stand anmelden</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section id="foerderverein">
+        <div class="grid2">
+          <div class="card">
+            <h2>Über den Förderverein</h2>
+            <p class="lead">
+              Als Förderverein unterstützen wir unsere Kita durch Anschaffungen, Ausflüge und Aktionen,
+              die das Miteinander stärken und Freude für Groß und Klein bringen.
+            </p>
+
+            <h3>Das haben wir gemeinsam erreicht</h3>
+            <ul class="info-list">
+              <li>Errichtung einer sicheren Trampolinanlage</li>
+              <li>Organisation des St.-Martinsumzugs</li>
+              <li>Tombola mit tollen Gewinnen</li>
+              <li>Anschaffung von Spielgeräten für drinnen und draußen</li>
+            </ul>
+
+            <h3>Unsere Pläne für die Zukunft</h3>
+            <ul class="info-list">
+              <li>Theaterbesuche für alle Kinder</li>
+              <li>Ostertombola</li>
+              <li>Waffelverkauf in der Innenstadt</li>
+              <li>Aufbau einer neuen Schaukelanlage</li>
+              <li>Anschaffung von Magnetwürfeln</li>
+              <li>Fahrzeuge speziell für die Krippe</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h2>Vorstand & Bankverbindung</h2>
+
+            <h3>Ansprechpartner des Vorstandes</h3>
+            <ul class="info-list">
+              <li><b>1. Vorsitzender:</b> Michael Neumann (Schmetterlingsgruppe)</li>
+              <li><b>2. Vorsitzende:</b> Isabella Bärtling (Schmetterlingsgruppe)</li>
+              <li><b>Kassenwärtin:</b> Ina Felgendreher (Hasengruppe)</li>
+              <li><b>Schriftführerin:</b> Teresa Reimann (Schmetterlingsgruppe)</li>
+              <li><b>Kassenprüfer:</b> Trine Kachel (Hasengruppe), André Stade (Schmetterlingsgruppe)</li>
+            </ul>
+
+            <div class="divider"></div>
+
+            <h3>Bankverbindung</h3>
+            <p class="lead" style="margin-top:6px;">
+              Volksbank Osnabrück eG<br/>
+              IBAN: DE81265900251020670100<br/>
+              BIC: GENODEF10SV
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="flohmarkt">
+        <div class="card">
+          <h2>Flohmarkt – Infos</h2>
+          <p class="lead">
+            Stöbern, entdecken, plaudern – und das alles in entspannter Atmosphäre: Der <b>Förderverein der Kita St. Johann</b> lädt herzlich zu einem bunten <b>Flohmarkt rund ums Kind</b> ein!
+Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hier gibt es viel zu entdecken. <p><b>Alle sind herzlich eingeladen, vorbeizukommen, zu stöbern und einen schönen Tag bei uns zu verbringen.</b>
+<p>Während die Großen gemütlich über den Flohmarkt schlendern, können die Kinder auf dem Außengelände spielen und an einem kleinen Mitmachprogramm teilnehmen. Für das leibliche Wohl ist ebenfalls gesorgt – perfekt für einen entspannten Flohmarktbesuch für die ganze Familie.
+
+<p><b>Du möchtest selbst verkaufen? Dann sichere dir rechtzeitig einen Stand! Die Anzahl der Tische ist begrenzt, daher ist eine vorherige Anmeldung erforderlich.</b>
+
+          </p>
+
+          <div class="grid2" style="margin-top:14px;">
+            <div>
+              <h3>Wann & Wo?</h3>
+              <ul class="info-list">
+                <li><b>Ort:</b> Kita-Gelände St. Johann (Am Landgericht 3, 49074 Osnabrück)</li>
+		<li><b>Art:</b> Flohmarkt im Außenbereich</li>
+                <li><b>Datum:</b> <span id="eventDateText">30.05.2026</span></li>
+                <li><b>Uhrzeit:</b> <span id="eventTimeText">10:00 – 15:00 Uhr</span></li>
+		<li><b>Standgebühr</b> 10€ pro Tisch zugunsten des Fördervereins (Tische werden gestellt) </li>
+		<li><b>Anzahl der Stände:</b> 25</li>
+		<p><li><b>Schlechtwetterregelung:</b> Bei schlechtem Wetter wird der Flohmarkt verschoben. Aktuelle Infos dazu findet ihr hier auf der Website.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3>Was gibt’s vor Ort?</h3>
+              <ul class="info-list">
+                <li>Verpflegung gegen einen kleinen Betrag</li>
+                <li>Spielplatz/ Spielgeräte für Kinder auf dem Gelände</li>
+                <li>Familienfreundliche Atmosphäre</li>
+		<li>kleines Mitmachprogramm für Kinder (weitere Infos folgen)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="anmeldung">
+        <div class="grid2">
+          <div class="card">
+            <h2>Stand anmelden</h2>
+            <p class="lead">
+              Über dieses Formular könnt ihr euch anmelden. Die Nachricht wird an <b>flohmarkt-st-johann@web.de</b> gesendet.
+            </p>
+
+            <!--
+              FORMULAR-VERSAND (kostenlos möglich):
+              1) Formspree: https://formspree.io/
+                 - Account erstellen
+                 - neues Formular anlegen
+                 - Ziel-E-Mail: y.thyes@gmx.de bestätigen
+                 - Endpoint-URL (z.B. https://formspree.io/f/abcdwxyz) hier bei action eintragen
+            -->
+            <form action="https://formspree.io/f/mvzbgbar" method="POST">
+              <input type="text" name="name" placeholder="Name" required />
+              <input type="email" name="email" placeholder="E-Mail" required />
+              <input type="text" name="phone" placeholder="Telefon (optional)" />
+              <textarea name="message" placeholder="Nachricht / Standwunsch" required></textarea>
+
+              <label class="formhint">
+                <input type="checkbox" required />
+                Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten
+                zur Bearbeitung der Anfrage zu.
+              </label>
+
+              <button class="btn primary" type="submit">Absenden</button>
+              <p class="formhint">
+              
+              </p>
+            </form>
+          </div>
+
+          <div class="card" id="kontakt">
+            <h2>Kontakt</h2>
+            <p class="lead" style="margin-top:10px;">
+              Förderverein Kita St. Johann e. V.<br/>
+              Am Landgericht 3<br/>
+              49074 Osnabrück<br/>
+              Tel.: 0541 / 350 6351
+		<p>Mail: flohmarkt-st-johann@web.de
+            </p>
+            <p class="formhint">
+              
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="impressum">
+        <div class="card legal">
+          <h2>Impressum</h2>
+
+          <p><b>Angaben gemäß § 5 DDG</b></p>
+
+          <p>
+            <b>Förderverein Kita St. Johann e. V.</b><br/>
+            Am Landgericht 3<br/>
+            49074 Osnabrück<br/>
+            Deutschland
+          </p>
+
+          <p>
+            <b>Telefon:</b> 0541 / 350 6351<br/>
+            <b>E-Mail:</b> y.thyes@gmx.de
+          </p>
+
+          <p>
+            <b>Vertretungsberechtigt (Vorstand):</b><br/>
+            1. Vorsitzender: Michael Neumann<br/>
+            2. Vorsitzende: Isabella Bärtling
+          </p>
+
+          <p>
+            <b>Vereinsregister:</b> [Amtsgericht / Registergericht eintragen]<br/>
+            <b>Registernummer:</b> [Registernummer eintragen]
+          </p>
+
+          <p>
+            <b>Inhaltlich verantwortlich:</b><br/>
+            Yana Thyes
+          </p>
+
+          <div class="divider"></div>
+
+          <p><b>Haftung für Inhalte</b></p>
+          <p>
+            Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität
+            der Inhalte können wir jedoch keine Gewähr übernehmen.
+          </p>
+
+          <p><b>Haftung für Links</b></p>
+          <p>
+            Diese Website enthält ggf. Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben.
+            Für diese fremden Inhalte wird keine Gewähr übernommen.
+          </p>
+
+          <p><b>Urheberrecht</b></p>
+          <p>
+            Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht.
+          </p>
+
+          <small>Stand: <span id="todayImpressum"></span></small>
+        </div>
+      </section>
+
+      <section id="datenschutz">
+        <div class="card legal">
+          <h2>Datenschutzerklärung</h2>
+
+          <p>
+            Wir nehmen den Schutz Ihrer personenbezogenen Daten ernst. Personenbezogene Daten sind alle Daten,
+            mit denen Sie persönlich identifiziert werden können (z. B. Name, E-Mail-Adresse).
+          </p>
+
+          <h3>1. Verantwortlicher</h3>
+          <p>
+            Förderverein Kita St. Johann e. V.<br/>
+            Am Landgericht 3, 49074 Osnabrück<br/>
+            Tel.: 0541 / 350 6351<br/>
+            E-Mail: y.thyes@gmx.de
+          </p>
+
+          <h3>2. Hosting</h3>
+          <p>
+            Diese Website kann über GitHub Pages bereitgestellt werden. Dabei werden durch GitHub beim Aufruf der Website
+            technisch notwendige Daten verarbeitet (z. B. IP-Adresse, Zeitpunkt des Zugriffs, aufgerufene Seite).
+            Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem Betrieb und Bereitstellung).
+          </p>
+
+          <h3>3. Kontakt- und Anmeldeformular</h3>
+          <p>
+            Wenn Sie uns per Formular Anfragen senden, werden Ihre Angaben aus dem Formular (Name, E-Mail, ggf. Telefon, Nachricht)
+            zur Bearbeitung der Anfrage bei uns verarbeitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO
+            bzw. Art. 6 Abs. 1 lit. f DSGVO.
+          </p>
+
+          <p>
+            Das Formular wird über einen externen Dienst (z. B. Formspree/Getform) versendet. Dabei werden die Formulardaten an
+            diesen Dienst übertragen, damit die Nachricht per E-Mail an uns zugestellt werden kann.
+          </p>
+
+          <h3>4. Speicherdauer</h3>
+          <p>
+            Wir speichern Ihre Daten nur so lange, wie es für die Bearbeitung Ihrer Anfrage erforderlich ist und wie es gesetzliche
+            Aufbewahrungspflichten vorsehen.
+          </p>
+
+          <h3>5. Ihre Rechte</h3>
+          <ul class="info-list">
+            <li>Auskunft (Art. 15 DSGVO)</li>
+            <li>Berichtigung (Art. 16 DSGVO)</li>
+            <li>Löschung (Art. 17 DSGVO) und Einschränkung (Art. 18 DSGVO)</li>
+            <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+            <li>Widerspruch (Art. 21 DSGVO)</li>
+            <li>Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)</li>
+          </ul>
+
+          <h3>6. SSL-/TLS-Verschlüsselung</h3>
+          <p>
+            Diese Seite sollte ausschließlich über HTTPS betrieben werden. Bei GitHub Pages ist HTTPS standardmäßig verfügbar.
+          </p>
+
+          <small>Stand: <span id="todayDSGVO"></span></small>
+        </div>
+      </section>
+
+      <footer>
+        <div class="card" style="padding: 16px;">
+          <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+            <div>
+              <b style="color: var(--wine);">Förderverein Kita St. Johann e. V.</b><br/>
+              <span>Gemeinsam stark für unsere Kinder</span>
+            </div>
+            <div>
+              <a href="#impressum">Impressum</a> · <a href="#datenschutz">Datenschutz</a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // ========= Flohmarkt-Datum hier anpassen =========
+    // Format: "YYYY-MM-DDTHH:MM:SS"
+    // (Uhrzeit kannst du ändern, z.B. "2026-05-30T09:00:00")
+    const EVENT_DATETIME = "2026-05-30T10:00:00";
+
+    // Anzeige im Flohmarkt-Block (optional anpassen)
+    document.getElementById("eventDateText").textContent = "30.05.2026";
+    document.getElementById("eventTimeText").textContent = "10:00 – 14:00 Uhr";
+
+    // ========= Countdown =========
+    const eventTime = new Date(EVENT_DATETIME).getTime();
+    const countdownEl = document.getElementById("countdownValue");
+
+    function updateCountdown(){
+      const now = Date.now();
+      const diff = eventTime - now;
+
+      if (Number.isNaN(eventTime)) {
+        countdownEl.textContent = "Datum ungültig – bitte EVENT_DATETIME prüfen.";
+        return;
+      }
+
+      if (diff <= 0){
+        countdownEl.textContent = "🎉 Der Flohmarkt läuft!";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+
+      countdownEl.textContent = `Noch ${days} Tage ${hours} Std ${minutes} Min`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ========= "Stand"-Datum im Impressum/Datenschutz =========
+    const today = new Date().toLocaleDateString("de-DE");
+    document.getElementById("todayImpressum").textContent = today;
+    document.getElementById("todayDSGVO").textContent = today;
+  </script>
+</body>
+</html>
