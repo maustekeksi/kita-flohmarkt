@@ -293,6 +293,12 @@
       font: inherit;
       background: #fff;
     }
+label{
+  font-weight: 700;
+  font-size: 14px;
+  margin-top: 6px;
+  color: var(--wine);
+}
     textarea{ resize: vertical; min-height: 110px; }
 
     .formhint{
@@ -498,23 +504,40 @@ Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hie
                  - Ziel-E-Mail: y.thyes@gmx.de bestätigen
                  - Endpoint-URL (z.B. https://formspree.io/f/abcdwxyz) hier bei action eintragen
             -->
-            <form action="https://formspree.io/f/mvzbgbar" method="POST">
-              <input type="text" name="name" placeholder="Name" required />
-              <input type="email" name="email" placeholder="E-Mail" required />
-              <input type="text" name="phone" placeholder="Telefon (optional)" />
-              <textarea name="message" placeholder="Nachricht / Standwunsch" required></textarea>
+           <form action="https://formspree.io/f/mvzbgbar" method="POST">
 
-              <label class="formhint">
-                <input type="checkbox" required />
-                Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten
-                zur Bearbeitung der Anfrage zu.
-              </label>
+  <label for="name">Name *</label>
+  <input type="text" id="name" name="name" required />
 
-              <button class="btn primary" type="submit">Absenden</button>
-              <p class="formhint">
-              
-              </p>
-            </form>
+  <label for="email">E-Mail *</label>
+  <input type="email" id="email" name="email" required />
+
+  <label for="phone">Telefon (optional)</label>
+  <input type="text" id="phone" name="phone" />
+
+  <label for="aufmerksam">Wie bist du auf den Flohmarkt aufmerksam geworden? *</label>
+  <select id="aufmerksam" name="aufmerksam_geworden" required>
+    <option value="">Bitte auswählen</option>
+    <option value="Kita">Kita</option>
+    <option value="Krippe">Krippe</option>
+    <option value="Freunde/Bekannte">Freunde / Bekannte</option>
+    <option value="Aushang">Aushang</option>
+    <option value="Internet">Internet</option>
+    <option value="Sonstiges">Sonstiges</option>
+  </select>
+
+  <label for="message">Nachricht / Standwunsch *</label>
+  <textarea id="message" name="message" required></textarea>
+
+  <label class="formhint">
+    <input type="checkbox" required />
+    Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten
+    zur Bearbeitung der Anfrage zu.
+  </label>
+
+  <button class="btn primary" type="submit">Absenden</button>
+
+</form>
           </div>
 
           <div class="card" id="kontakt">
