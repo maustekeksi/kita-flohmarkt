@@ -107,28 +107,19 @@
       min-width: 260px;
     }
 
-    /* Logo statt buntem Kreis */
+    /* Logo */
     .logo{
-  width: 100%;
-  max-width: 600px;   /* Desktop-Größe */
-  height: auto;
-  max-height: 240px;
-
-  object-fit: contain;
-  border-radius: 16px;
-  box-shadow: var(--card-shadow);
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.06);
-  padding: 8px;
-}
-
-  object-fit: contain;
-  border-radius: 16px;
-  box-shadow: var(--card-shadow);
-  background: #fff;
-  border: 1px solid rgba(0,0,0,.06);
-  padding: 8px;
-}
+      width: 100%;
+      max-width: 600px;   /* Desktop-Größe */
+      height: auto;
+      max-height: 240px;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.06);
+      padding: 8px;
+    }
 
     .brand h1{
       font-size: 20px;
@@ -285,7 +276,7 @@
       gap: 10px;
       margin-top: 10px;
     }
-    input, textarea{
+    input, textarea, select{
       width: 100%;
       padding: 12px 12px;
       border-radius: 12px;
@@ -293,12 +284,12 @@
       font: inherit;
       background: #fff;
     }
-label{
-  font-weight: 700;
-  font-size: 14px;
-  margin-top: 6px;
-  color: var(--wine);
-}
+    label{
+      font-weight: 700;
+      font-size: 14px;
+      margin-top: 6px;
+      color: var(--wine);
+    }
     textarea{ resize: vertical; min-height: 110px; }
 
     .formhint{
@@ -333,18 +324,62 @@ label{
       background: rgba(0,0,0,.08);
       margin: 18px 0;
     }
-@media (max-width: 600px){
-  .logo{
-    max-width: 90%;
-    max-height: 140px;
-    padding: 6px;
-  }
 
-  .brand{
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
+    /* ===== Sponsoren / Logo-Grid (KORREKT: global) ===== */
+    .logo-grid{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 3 Logos nebeneinander */
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 860px){
+      .logo-grid{ grid-template-columns: repeat(2, 1fr); } /* Tablet: 2 */
+    }
+    @media (max-width: 520px){
+      .logo-grid{ grid-template-columns: 1fr; } /* Handy: 1 */
+    }
+
+    .sponsor{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 14px;
+      padding: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.06);
+      min-height: 110px;              /* sorgt für gleiche Kachelgröße */
+      text-decoration: none;
+      transition: transform 120ms ease;
+    }
+
+    .sponsor img{
+      width: 100%;
+      max-width: 220px;               /* Logo bleibt „gleich groß“ */
+      height: 70px;                   /* feste Höhe → einheitliche Optik */
+      object-fit: contain;            /* Logo wird nicht verzerrt */
+      display: block;
+      filter: saturate(1.02);
+    }
+
+    .sponsor:hover{
+      transform: translateY(-1px);
+    }
+
+    /* Mobile-Anpassungen (KORREKT geschlossen) */
+    @media (max-width: 600px){
+      .logo{
+        max-width: 90%;
+        max-height: 140px;
+        padding: 6px;
+      }
+
+      .brand{
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
   </style>
 </head>
 
@@ -378,6 +413,7 @@ label{
             <a href="#foerderverein">Förderverein</a>
             <a href="#flohmarkt">Flohmarkt</a>
             <a href="#anmeldung">Anmeldung</a>
+            <a href="#ostertombola">Ostertombola</a>
             <a href="#impressum">Impressum</a>
             <a href="#datenschutz">Datenschutz</a>
           </nav>
@@ -389,10 +425,10 @@ label{
             <p class="lead">
               Wir engagieren uns seit dem Jahr 2000 mit Herzblut für das Wohl und die Entwicklung aller Kinder unserer Kita –
               durch Anschaffungen, Ausflüge und Aktionen.
-	      Nun planen wir unseren ersten <b>Flohmarkt</b> zugunsten des Fördervereins. 
-
- <h3>Am 30. Mai ab 10 Uhr ist es soweit. Kommt vorbei!</h3>
+              Nun planen wir unseren ersten <b>Flohmarkt</b> zugunsten des Fördervereins.
             </p>
+
+            <h3>Am 30. Mai ab 10 Uhr ist es soweit. Kommt vorbei!</h3>
 
             <!-- Pills jetzt verlinkt -->
             <div class="pillrow">
@@ -405,9 +441,7 @@ label{
             <div class="countdown" aria-live="polite">
               <div class="label">Countdown bis zum Flohmarkt am 30.05.2026</div>
               <div id="countdownValue">Lädt…</div>
-              <small class="formhint">
-                
-              </small>
+              <small class="formhint"></small>
             </div>
 
             <div class="cta">
@@ -419,59 +453,62 @@ label{
       </header>
 
       <section id="foerderverein">
-      
-          <div class="card">
-            <h2>Über den Förderverein</h2>
-            <p class="lead">
-              Als Förderverein unterstützen wir unsere Kita durch Anschaffungen, Ausflüge und Aktionen,
-              die das Miteinander stärken und Freude für Groß und Klein bringen.
-            </p>
+        <div class="card">
+          <h2>Über den Förderverein</h2>
+          <p class="lead">
+            Als Förderverein unterstützen wir unsere Kita durch Anschaffungen, Ausflüge und Aktionen,
+            die das Miteinander stärken und Freude für Groß und Klein bringen.
+          </p>
 
-            <h3>Das haben wir gemeinsam erreicht</h3>
-            <ul class="info-list">
-              <li>Errichtung einer sicheren Trampolinanlage</li>
-              <li>Organisation des St.-Martinsumzugs</li>
-              <li>Tombola mit tollen Gewinnen</li>
-              <li>Anschaffung von Spielgeräten für drinnen und draußen</li>
-            </ul>
+          <h3>Das haben wir gemeinsam erreicht</h3>
+          <ul class="info-list">
+            <li>Errichtung einer sicheren Trampolinanlage</li>
+            <li>Organisation des St.-Martinsumzugs</li>
+            <li>Tombola mit tollen Gewinnen</li>
+            <li>Anschaffung von Spielgeräten für drinnen und draußen</li>
+          </ul>
 
-            <h3>Unsere Pläne für die Zukunft</h3>
-            <ul class="info-list">
-              <li>Theaterbesuche für alle Kinder</li>
-              <li>Ostertombola</li>
-              <li>Waffelverkauf in der Innenstadt</li>
-              <li>Aufbau einer neuen Schaukelanlage</li>
-              <li>Anschaffung von Magnetwürfeln</li>
-              <li>Fahrzeuge speziell für die Krippe</li>
-            </ul>
-          </div>
+          <h3>Unsere Pläne für die Zukunft</h3>
+          <ul class="info-list">
+            <li>Theaterbesuche für alle Kinder</li>
+            <li>Ostertombola</li>
+            <li>Waffelverkauf in der Innenstadt</li>
+            <li>Aufbau einer neuen Schaukelanlage</li>
+            <li>Anschaffung von Magnetwürfeln</li>
+            <li>Fahrzeuge speziell für die Krippe</li>
+          </ul>
+        </div>
+      </section>
 
-</section>
-          
       <section id="flohmarkt">
         <div class="card">
           <h2>Flohmarkt – Infos</h2>
           <p class="lead">
             Stöbern, entdecken, plaudern – und das alles in entspannter Atmosphäre: Der <b>Förderverein der Kita St. Johann</b> lädt herzlich zu einem bunten <b>Flohmarkt rund ums Kind</b> ein!
-Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hier gibt es viel zu entdecken. <p><b>Alle sind herzlich eingeladen, vorbeizukommen, zu stöbern und einen schönen Tag bei uns zu verbringen.</b>
-<p>Während die Großen gemütlich über den Flohmarkt schlendern, können die Kinder auf dem Außengelände spielen und an einem kleinen Mitmachprogramm teilnehmen. Für das leibliche Wohl ist ebenfalls gesorgt – perfekt für einen entspannten Flohmarktbesuch für die ganze Familie.
-
-<p><b>Du möchtest selbst verkaufen? Dann sichere dir rechtzeitig einen Stand! Die Anzahl der Tische ist begrenzt, daher ist eine vorherige Anmeldung erforderlich.</b>
-
+            Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hier gibt es viel zu entdecken.
           </p>
+
+          <p class="lead"><b>Alle sind herzlich eingeladen, vorbeizukommen, zu stöbern und einen schönen Tag bei uns zu verbringen.</b></p>
+
+          <p class="lead">
+            Während die Großen gemütlich über den Flohmarkt schlendern, können die Kinder auf dem Außengelände spielen und an einem kleinen Mitmachprogramm teilnehmen.
+            Für das leibliche Wohl ist ebenfalls gesorgt – perfekt für einen entspannten Flohmarktbesuch für die ganze Familie.
+          </p>
+
+          <p class="lead"><b>Du möchtest selbst verkaufen? Dann sichere dir rechtzeitig einen Stand! Die Anzahl der Tische ist begrenzt, daher ist eine vorherige Anmeldung erforderlich.</b></p>
 
           <div class="grid2" style="margin-top:14px;">
             <div>
               <h3>Wann & Wo?</h3>
               <ul class="info-list">
                 <li><b>Ort:</b> Kita-Gelände St. Johann (Am Landgericht 3, 49074 Osnabrück)</li>
-		<li><b>Art:</b> Flohmarkt im Außenbereich</li>
+                <li><b>Art:</b> Flohmarkt im Außenbereich</li>
                 <li><b>Datum:</b> <span id="eventDateText">30.05.2026</span></li>
                 <li><b>Uhrzeit:</b> <span id="eventTimeText">10:00 – 15:00 Uhr</span></li>
-		<li><b>Standgebühr</b> 10€ pro Tisch zugunsten des Fördervereins (Tische werden gestellt), Bezahlung bis 14 Tage nach Anmeldung </li>
-		<li><b>Anzahl der Stände:</b> 50</li>
-		<li><b>Anmeldeschluss:</b> 15.05.2026</li>
-		<p><li><b>Schlechtwetterregelung:</b> Bei schlechtem Wetter wird der Flohmarkt verschoben. Aktuelle Infos dazu findet ihr hier auf der Website.</li>
+                <li><b>Standgebühr</b> 10€ pro Tisch zugunsten des Fördervereins (Tische werden gestellt), Bezahlung bis 14 Tage nach Anmeldung </li>
+                <li><b>Anzahl der Stände:</b> 50</li>
+                <li><b>Anmeldeschluss:</b> 15.05.2026</li>
+                <li><b>Schlechtwetterregelung:</b> Bei schlechtem Wetter wird der Flohmarkt verschoben. Aktuelle Infos dazu findet ihr hier auf der Website.</li>
               </ul>
             </div>
 
@@ -481,7 +518,7 @@ Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hie
                 <li>Verpflegung gegen einen kleinen Betrag</li>
                 <li>Spielplatz/ Spielgeräte für Kinder auf dem Gelände</li>
                 <li>Familienfreundliche Atmosphäre</li>
-		<li>kleines Mitmachprogramm für Kinder (weitere Infos folgen)</li>
+                <li>kleines Mitmachprogramm für Kinder (weitere Infos folgen)</li>
               </ul>
             </div>
           </div>
@@ -496,49 +533,39 @@ Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hie
               Über dieses Formular könnt ihr euch anmelden. Die Nachricht wird an <b>flohmarkt-st-johann@web.de</b> gesendet.
             </p>
 
-            <!--
-              FORMULAR-VERSAND (kostenlos möglich):
-              1) Formspree: https://formspree.io/
-                 - Account erstellen
-                 - neues Formular anlegen
-                 - Ziel-E-Mail: y.thyes@gmx.de bestätigen
-                 - Endpoint-URL (z.B. https://formspree.io/f/abcdwxyz) hier bei action eintragen
-            -->
-           <form action="https://formspree.io/f/mvzbgbar" method="POST">
+            <form action="https://formspree.io/f/mvzbgbar" method="POST">
+              <label for="name">Name *</label>
+              <input type="text" id="name" name="name" required />
 
-  <label for="name">Name *</label>
-  <input type="text" id="name" name="name" required />
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" required />
 
-  <label for="email">E-Mail *</label>
-  <input type="email" id="email" name="email" required />
+              <label for="phone">Telefon (optional)</label>
+              <input type="text" id="phone" name="phone" />
 
-  <label for="phone">Telefon (optional)</label>
-  <input type="text" id="phone" name="phone" />
+              <label for="aufmerksam">Wie bist du auf den Flohmarkt aufmerksam geworden? *</label>
+              <select id="aufmerksam" name="aufmerksam_geworden" required>
+                <option value="">Bitte auswählen</option>
+                <option value="Kita">Kita</option>
+                <option value="Krippe">Krippe</option>
+                <option value="Freunde/Bekannte">Freunde / Bekannte</option>
+                <option value="Aushang">Aushang</option>
+                <option value="Klecks">Klecks</option>
+                <option value="Internet">Internet</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
 
-  <label for="aufmerksam">Wie bist du auf den Flohmarkt aufmerksam geworden? *</label>
-  <select id="aufmerksam" name="aufmerksam_geworden" required>
-    <option value="">Bitte auswählen</option>
-    <option value="Kita">Kita</option>
-    <option value="Krippe">Krippe</option>
-    <option value="Freunde/Bekannte">Freunde / Bekannte</option>
-    <option value="Aushang">Aushang</option>
-<option value="Klecks">Klecks</option>
-    <option value="Internet">Internet</option>
-    <option value="Sonstiges">Sonstiges</option>
-  </select>
+              <label for="message">Nachricht / Standwunsch *</label>
+              <textarea id="message" name="message" required></textarea>
 
-  <label for="message">Nachricht / Standwunsch *</label>
-  <textarea id="message" name="message" required></textarea>
+              <label class="formhint">
+                <input type="checkbox" required />
+                Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten
+                zur Bearbeitung der Anfrage zu.
+              </label>
 
-  <label class="formhint">
-    <input type="checkbox" required />
-    Ich habe die <a href="#datenschutz">Datenschutzerklärung</a> gelesen und stimme der Verarbeitung meiner Daten
-    zur Bearbeitung der Anfrage zu.
-  </label>
-
-  <button class="btn primary" type="submit">Absenden</button>
-
-</form>
+              <button class="btn primary" type="submit">Absenden</button>
+            </form>
           </div>
 
           <div class="card" id="kontakt">
@@ -548,11 +575,131 @@ Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hie
               Am Landgericht 3<br/>
               49074 Osnabrück<br/>
               Tel.: 0541 / 350 6351
-		<p>Mail: flohmarkt-st-johann@web.de
             </p>
-            <p class="formhint">
-              
-            </p>
+            <p class="lead">Mail: flohmarkt-st-johann@web.de</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="ostertombola">
+        <div class="card">
+          <h2>Ostertombola</h2>
+
+          <p class="lead">
+            Wir veranstalten zusätzlich eine Ostertombola zugunsten des Fördervereins.
+          </p>
+
+          <p class="thankyou">
+            🐰 Ein herzliches Dankeschön an unsere Sponsoren der Ostertombola!
+            Durch ihre großzügige Unterstützung können wir tolle Preise verlosen
+            und wichtige Projekte für unsere Kindergartenkinder fördern.
+          </p>
+
+          <h3>Sponsoren</h3>
+
+          <div class="logo-grid">
+            <a class="sponsor" href="https://spieltraum.de/" target="_blank" rel="noopener">
+              <img src="spieltraum.png" alt="Spieltraum" loading="lazy">
+            </a>
+
+            <a class="sponsor" href="https://serengeti-park.de/" target="_blank" rel="noopener">
+              <img src="serengetipark.png" alt="Serengeti Park" loading="lazy">
+            </a>
+
+            <a class="sponsor" href="https://www.jumphouse.de/osnabrueck/" target="_blank" rel="noopener">
+              <img src="jumphouse.png" alt="Jump House Osnabrück" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.zoo-osnabrueck.de/" target="_blank" rel="noopener">
+              <img src="zooosnabrück.png" alt="Zoo Osnabrück" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.tierpark-stroehen.de/" target="_blank" rel="noopener">
+              <img src="tierparkströhen.png" alt="Tierpark Ströhen" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.dm.de/" target="_blank" rel="noopener">
+              <img src="dm.png" alt="dm" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.stadtwerke-osnabrueck.de/schinkelbad" target="_blank" rel="noopener">
+              <img src="schinkelbad.png" alt="Schinkelbad Osnabrück" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.tierpark-nordhorn.de/" target="_blank" rel="noopener">
+              <img src="tierparknordhorn.png" alt="Tierpark Nordhorn" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.wildfreigehege-saerbeck.de/start.html" target="_blank" rel="noopener">
+              <img src="tierparksaerbeck.png" alt="Tierpark Saerbeck" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.emsflower.de/" target="_blank" rel="noopener">
+              <img src="emsflower.png" alt="Emsflower" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.betzold.de/" target="_blank" rel="noopener">
+              <img src="betzold.png" alt="Bezold" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.golfhouse.de/" target="_blank" rel="noopener">
+              <img src="golfhouse.png" alt="Golf House" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://baeckerei-schmidt.de/" target="_blank" rel="noopener">
+              <img src="bäckereischmidt.png" alt="Bäckerei Schmidt" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.salzkasten.de/" target="_blank" rel="noopener">
+              <img src="salzkasten.png" alt="Salzkasten" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.hall-of-fame.online/" target="_blank" rel="noopener">
+              <img src="halloffame.png" alt="Hall of Fame" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.fontanella-eiscafe.de/" target="_blank" rel="noopener">
+              <img src="fontanella.png" alt="Fontanella" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.wm.de/" target="_blank" rel="noopener">
+              <img src="wesselsmüller.png" alt="Wessels und Müller" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.dom-buchhandlung.de/" target="_blank" rel="noopener">
+              <img src="dombuchhandlung.png" alt="Dom Buchhandlung" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.hof-hauswoermann.de/" target="_blank" rel="noopener">
+              <img src="hofpadeffke.png" alt="Hof Padeffke" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.visitsealife.com/de/" target="_blank" rel="noopener">
+              <img src="sealife.png" alt="Sealife" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://geopark-terravita.de/" target="_blank" rel="noopener">
+              <img src="terravita.png" alt="Terra Vita" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://altstaedter-buecherstuben.de/" target="_blank" rel="noopener">
+              <img src="altstädterbuchladen.png" alt="Altstädter Bücherstuben" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://www.salzmarkt-apotheke.de/" target="_blank" rel="noopener">
+              <img src="salzmarktapotheke.png" alt="Salzmarkt Apotheke" loading="lazy">
+            </a>
+
+	<a class="sponsor" href="https://die-gemuesegaertner.de/shop/" target="_blank" rel="noopener">
+              <img src="gemüsegärtner.png" alt="die Gemüsegärtner" loading="lazy">
+            </a>
+
+            <!-- Neues Logo = einfach diesen Block kopieren -->
+            <!--
+            <a class="sponsor" href="https://firma4.de" target="_blank" rel="noopener">
+              <img src="sponsoren/firma4.png" alt="Firma 4" loading="lazy">
+            </a>
+            -->
           </div>
         </div>
       </section>
@@ -577,10 +724,9 @@ Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hie
 
           <p>
             <b>Kontaktpersonen Förderverein:</b><br/>
-             Michael Neumann<br/>
+            Michael Neumann<br/>
             Isabella Bärtling
           </p>
-
 
           <p>
             <b>Inhaltlich verantwortlich:</b><br/>
@@ -717,7 +863,7 @@ Ob gut erhaltene Kinderkleidung, Spielzeug, Bücher oder kleine Schätze – hie
 
       const days = Math.floor(diff / (1000*60*60*24));
       const hours = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
-      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60));
+      const minutes = Math.floor((diff % (1000*60*60)) / (1000*60*60));
 
       countdownEl.textContent = `Noch ${days} Tage ${hours} Std ${minutes} Min`;
     }
